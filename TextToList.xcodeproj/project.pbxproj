@@ -15,6 +15,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		BEA2FE331949997100C4BA3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BECA25B71948576400D3A1DE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BECA25BF1948576400D3A1DE;
+			remoteInfo = TextToList;
+		};
 		BECA25CD1948576400D3A1DE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BECA25B71948576400D3A1DE /* Project object */;
@@ -158,6 +165,7 @@
 			dependencies = (
 				BECA25CE1948576400D3A1DE /* PBXTargetDependency */,
 				BECA25DD194857D000D3A1DE /* PBXTargetDependency */,
+				BEA2FE341949997100C4BA3B /* PBXTargetDependency */,
 			);
 			name = TextToListTests;
 			productName = TextToListTests;
@@ -238,6 +246,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		BEA2FE341949997100C4BA3B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BECA25BF1948576400D3A1DE /* TextToList */;
+			targetProxy = BEA2FE331949997100C4BA3B /* PBXContainerItemProxy */;
+		};
 		BECA25CE1948576400D3A1DE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = BECA25BF1948576400D3A1DE /* TextToList */;
@@ -346,6 +359,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = TextToList/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -363,6 +377,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = TextToList/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -381,6 +396,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = TextToListTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				METAL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -395,6 +411,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = TextToListTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				METAL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";

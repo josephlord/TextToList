@@ -49,11 +49,21 @@ class TextToListTests: XCTestCase {
         XCTAssert(_procLine("  - boom") == ("boom", 4, true))
     }
     
+    func testItemLine() {
+        var item:Item, list:List
+        var (it, err) = ItemLine(text: "blah").makeNode([])
+        XCTAssertEqual(err.count, 0)
+        XCTAssertEqual(it.name, "blah")
+   /*     (it, err) = ItemLine(text: "- blah").makeNode([])
+        XCTAssertEqual(err.count, 0)
+        XCTAssertEqual(it.name, "blah")*/
+    }
+   /*
     func testParseMultilineText() {
         var errors:ParseError[] = []
-        let result: ListContentItem[] = parseMultilineText(testString1, &errors)
+        let result: ListContentItem[] = parseMultilineText(self.testString1, &errors)
         XCTAssertEqual(errors.count, 0)
-        XCTAssertEqual(result[0].name,"dummy")
+        XCTAssertEqual(result[0].name,"Item1")
     }
     
     func testPerformanceExample() {
@@ -63,5 +73,5 @@ class TextToListTests: XCTestCase {
             let result: ListContentItem[] = parseMultilineText(self.testString1, &errors)
         }
     }
-    
+    */
 }

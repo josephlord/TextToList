@@ -8,14 +8,22 @@
 
 import Foundation
 
+enum ContentType {
+    case list, item
+}
+
 protocol ListContentItem {
     var name:String { get }
+    var type:ContentType { get }
 }
+
+
 
 struct Item : ListContentItem {
     let name:String
     let notes:String = ""
     let quantity:String = ""
+    let type = ContentType.item
     init(name: String) {
         self.name = name
     }
@@ -29,6 +37,7 @@ struct Item : ListContentItem {
 struct List : ListContentItem {
     let contents:ListContentItem[]
     let name:String
+    let type = ContentType.list
     init(name:String, contents: ListContentItem[]) {
         self.name = name
         self.contents = contents
@@ -66,28 +75,44 @@ struct ItemLine : ListItemLine {
     
     init(text:String) {
         rawLine = text
-        var tl:String
-        var idnt:Int
-        var lst:Bool
-        (tl, idnt, lst) = _procLine(text)
-        trimmedLine = tl
-        indent = idnt
-        list = lst
+        (trimmedLine, indent, list) = _procLine(text)
+    }
+    func makeNode(lines: ListItemLine[])->(ListContentItem, ParseError[])  {
+        if list {
+            let (contents, errors) = buildTree(lines[1..lines.count], indent)
+            return (List(name: trimmedLine, contents: contents), errors)
+        } else {
+            return (Item(name: trimmedLine),[])
+        }
     }
 }
 
 struct ParseError {
-    let line:Int
+    let line:Int?
     enum Reason {
         case badIndent
     }
 }
 
+func buildTree(lineArray:Slice<ListItemLine>, indentLevel:Int) -> (ListContentItem[],ParseError[]) {
+    var ret_val:ListContentItem[] = []
+    var parseErrors:ParseError[] = []
+    var in_sublist = false
+    var index = 0
+    for line in lineArray {
+        if (line.indent < indentLevel) { break }
+        if (in_sublist && line.indent > indentLevel) { continue }
+        if (in_sublist) { in_sublist = false }
+        
+    }
+    return (ret_val, parseErrors)
+}
+
 func parseMultilineText(text:String, inout errors:ParseError[] ) -> ListContentItem[] {
-    
+    print(text)
     var lilArr:ListItemLine[] = []
     text.enumerateLines(){(line: String, inout stop: Bool)->() in lilArr.append(ItemLine(text: line))}
-    
-    return [Item(name: "dummy")]
+    let (ret:ListContentItem[],errors:ParseError[]) = buildTree(lilArr[0..lilArr.count], 0)
+    return ret
 }
 
