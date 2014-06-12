@@ -8,8 +8,16 @@
 
 import XCTest
 
+
+func == <T:Equatable,U:Equatable,V:Equatable>(lhs: (T,U,V), rhs: (T,U,V))->Bool {
+    let (l0,l1,l2) = lhs
+    let (r0,r1,r2) = rhs
+    return l0 == r0 && l1 == r1 && l2 == r2
+}
+
 class TextToListTests: XCTestCase {
-    
+
+    let testString1 = "Item1\nItem2\nList1\n  L1Item1\n  L1Item2\nItem3"
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -23,7 +31,7 @@ class TextToListTests: XCTestCase {
     func testItem() {
         let itemname = "Iname"
         let it = Item(name: itemname)
-        XCTAssert(it.name == itemname)
+        XCTAssertEqual(it.name, itemname)
     }
     
     func testSplitLines() {
@@ -31,12 +39,28 @@ class TextToListTests: XCTestCase {
         var stringArray: String[] = []
         stringWith3Lines.enumerateLines({(line:String, inout stop:Bool)->() in stringArray.append(line)})
         XCTAssert(stringArray.count == 3)
+        XCTAssert(stringArray == ["zero", "one","two"])
+    }
+    
+    func test_procLine() {
+        XCTAssert(_procLine("blah") == ("blah", 0, false))
+        XCTAssert(_procLine("- foo") == ("foo", 2, true))
+        XCTAssert(_procLine("  boo") == ("boo", 2, false))
+        XCTAssert(_procLine("  - boom") == ("boom", 4, true))
+    }
+    
+    func testParseMultilineText() {
+        var errors:ParseError[] = []
+        let result: ListContentItem[] = parseMultilineText(testString1, &errors)
+        XCTAssertEqual(errors.count, 0)
+        XCTAssertEqual(result[0].name,"dummy")
     }
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
+        var errors:ParseError[] = []
         self.measureBlock() {
-            // Put the code you want to measure the time of here.
+            let result: ListContentItem[] = parseMultilineText(self.testString1, &errors)
         }
     }
     
