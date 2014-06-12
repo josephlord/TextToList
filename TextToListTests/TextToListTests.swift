@@ -8,6 +8,11 @@
 
 import XCTest
 
+func == <T:Equatable,U:Equatable>(lhs: (T,U), rhs: (T,U))->Bool {
+    let (l0,l1) = lhs
+    let (r0,r1) = rhs
+    return l0 == r0 && l1 == r1
+}
 
 func == <T:Equatable,U:Equatable,V:Equatable>(lhs: (T,U,V), rhs: (T,U,V))->Bool {
     let (l0,l1,l2) = lhs
@@ -17,7 +22,7 @@ func == <T:Equatable,U:Equatable,V:Equatable>(lhs: (T,U,V), rhs: (T,U,V))->Bool 
 
 class TextToListTests: XCTestCase {
 
-    let testString1 = "Item1\nItem2\nList1\n  L1Item1\n  L1Item2\nItem3"
+    let testString1 = "Item1\nItem2\n- List1\n  L1Item1\n  L1Item2\nItem3"
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -33,14 +38,14 @@ class TextToListTests: XCTestCase {
         let it = Item(name: itemname)
         XCTAssertEqual(it.name, itemname)
     }
-    
+    /*
     func testSplitLines() {
         let stringWith3Lines = "zero\none\ntwo"
         var stringArray: String[] = []
         stringWith3Lines.enumerateLines({(line:String, inout stop:Bool)->() in stringArray.append(line)})
         XCTAssert(stringArray.count == 3)
         XCTAssert(stringArray == ["zero", "one","two"])
-    }
+    }*/
     
     func test_procLine() {
         XCTAssert(_procLine("blah") == ("blah", 0, false))
@@ -49,29 +54,40 @@ class TextToListTests: XCTestCase {
         XCTAssert(_procLine("  - boom") == ("boom", 4, true))
     }
     
+    func testBuildTree() {
+        var input:ListItemLine[] = []
+        var (tree:ListContentItem[], errs:ParseError[]) = buildTree(input[0..0], 0)
+        XCTAssert(tree.count == 0)
+        XCTAssert(errs.count == 0)
+    }
+    
+    func testMultilineToListContentsItems() {
+        let lciArr = multilineToListContentItems(self.testString1)
+        for l in lciArr {
+           println("trimmed:'\(l.trimmedLine)' indent: \(l.indent)' isList? \(l.list)")
+        }
+    }
+    
     func testItemLine() {
-        var item:Item, list:List
         var (it, err) = ItemLine(text: "blah").makeNode([])
         XCTAssertEqual(err.count, 0)
         XCTAssertEqual(it.name, "blah")
-   /*     (it, err) = ItemLine(text: "- blah").makeNode([])
+        
+        var (lst, err2) = ItemLine(text: "- blah").makeNode([])
         XCTAssertEqual(err.count, 0)
-        XCTAssertEqual(it.name, "blah")*/
+        XCTAssertEqual(it.name, "blah")
     }
-   /*
+ 
     func testParseMultilineText() {
-        var errors:ParseError[] = []
-        let result: ListContentItem[] = parseMultilineText(self.testString1, &errors)
+        let (result, errors) = parseMultilineText(self.testString1)
         XCTAssertEqual(errors.count, 0)
         XCTAssertEqual(result[0].name,"Item1")
     }
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        var errors:ParseError[] = []
         self.measureBlock() {
-            let result: ListContentItem[] = parseMultilineText(self.testString1, &errors)
+            let (result,errors) = parseMultilineText(self.testString1)
         }
     }
-    */
 }
