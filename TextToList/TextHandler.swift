@@ -14,16 +14,24 @@ func least <T:Comparable>(a:T , b:T)->T {
 
 enum ContentType {
     case list, item
+    func name()->String {
+        switch(self) {
+        case .list:
+            return "list"
+        case .item:
+            return "item"
+        }
+    }
 }
 
 protocol JSONable {
-    func json()->String
+    var json: String { get }
 }
 
 func array2json(arr:JSONable[])->String {
     var list_json = "["
-    for lci in arr {
-        list_json += lci.json() + ","
+    for jsonable in arr {
+        list_json += jsonable.json + ","
     }
     list_json.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: ","))
     return list_json + "]"
@@ -35,7 +43,7 @@ protocol ListContentItem: JSONable {
     
 }
 
-struct Item : ListContentItem {
+struct Item : ListContentItem,JSONable {
     let name:String
     let notes:String = ""
     let quantity:String = ""
@@ -48,12 +56,12 @@ struct Item : ListContentItem {
         self.notes = notes
         self.quantity = quantity
     }
-    func json()->String {
+    var json:String {
         return "{ class\": \"Item\", \"name\": \"\(self.name)\", \"checked\": false, \"quantity\": \"\(self.quantity)\", \"notes\": \"\(self.notes)\"}"
     }
 }
 
-struct List : ListContentItem {
+struct List : ListContentItem,JSONable {
     let contents:ListContentItem[]
     let name:String
     let type = ContentType.list
@@ -61,9 +69,9 @@ struct List : ListContentItem {
         self.name = name
         self.contents = contents
     }
-    func json()->String {
-        var list_json = "{ \"class\": \"List\", \"name\": \"\(self.name)\", \"contents\": ["
-        
+    var json:String {
+        var list_json = "{ \"class\": \"List\", \"name\": \"\(self.name)\", \"contents\": "
+            //array2json(self.contents)
         
         return list_json
     }
@@ -108,7 +116,7 @@ struct ItemLine : ListItemLine {
     }
     func makeNode(lines: Slice<ListItemLine>)->(ListContentItem, ParseError[])  {
         if list {
-            let (contents, errors) = buildTree(lines[least(1,lines.count)..lines.count], indent)
+            let (contents, errors) = buildTree(lines, indent)//[least(1,lines.count)..lines.count]
             return (List(name: trimmedLine, contents: contents), errors)
         } else {
             return (Item(name: trimmedLine),[])
@@ -136,19 +144,31 @@ func buildTree(lineArray:Slice<ListItemLine>, indentLevel:Int)
     var in_sublist = false
     var nextIndex = 0
     for line in lineArray {
+        println("index: \(nextIndex), indentlevel: \(indentLevel), lineArray.count: \(lineArray.count)")
         ++nextIndex
-        if (line.indent < indentLevel) { break } // Outdent compared to us. Escape and let caller deal with it
-        if (in_sublist && line.indent > indentLevel + 1) { continue }
+        println("trimmed:'\(line.trimmedLine)' indent: \(line.indent)' isList? \(line.list)")
+        if (line.indent < indentLevel) {
+            println("Outdent - break and return")
+            break
+        } // Outdent compared to us. Escape and let caller deal with it
+        if (in_sublist && line.indent > indentLevel + 1) {
+            println("In sublist -continue")
+            continue
+        }
         if (in_sublist && line.indent == indentLevel + 1) {
             parseErrors.append(ParseError(line: nil));
+            println("Indent + 1 parse error")
             continue
         }
         // At this point either we weren't in a sublist or were but are back at this level's indentation level
+        println("Calling makeNode: \(least(nextIndex, lineArray.count))..\(lineArray.count)")
         let (node,errors) = line.makeNode(lineArray[least(nextIndex, lineArray.count)..lineArray.count])
+        println("Node name; \(node.name), type: \(node.type.name())")
         in_sublist = node.type == ContentType.list
         ret_val.append(node)
         parseErrors += errors
     }
+    println("Returning from buildTree with \(ret_val.count) items")
     return (ret_val, parseErrors)
 }
 

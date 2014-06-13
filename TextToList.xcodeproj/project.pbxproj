@@ -22,6 +22,34 @@
 			remoteGlobalIDString = BECA25BF1948576400D3A1DE;
 			remoteInfo = TextToList;
 		};
+		BE7FDD11194B6B330079490E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BECA25B71948576400D3A1DE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BECA25BF1948576400D3A1DE;
+			remoteInfo = TextToList;
+		};
+		BE7FDD13194B6B700079490E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BECA25B71948576400D3A1DE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BECA25BF1948576400D3A1DE;
+			remoteInfo = TextToList;
+		};
+		BE7FDD15194B6B800079490E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BECA25B71948576400D3A1DE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BECA25BF1948576400D3A1DE;
+			remoteInfo = TextToList;
+		};
+		BE7FDD17194B80EF0079490E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BECA25B71948576400D3A1DE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BECA25BF1948576400D3A1DE;
+			remoteInfo = TextToList;
+		};
 		BEA2FE331949997100C4BA3B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BECA25B71948576400D3A1DE /* Project object */;
@@ -47,6 +75,7 @@
 
 /* Begin PBXFileReference section */
 		BE1EEAA5194876E6002D59D3 /* TextHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextHandler.swift; sourceTree = "<group>"; };
+		BE579EF5194B9EE60031D4C0 /* Slices.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Slices.playground; sourceTree = "<group>"; };
 		BECA25C01948576400D3A1DE /* TextToList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TextToList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BECA25C41948576400D3A1DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BECA25C51948576400D3A1DE /* TextToList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextToList.h; sourceTree = "<group>"; };
@@ -77,6 +106,7 @@
 		BECA25B61948576400D3A1DE = {
 			isa = PBXGroup;
 			children = (
+				BE579EF5194B9EE60031D4C0 /* Slices.playground */,
 				BECA25C21948576400D3A1DE /* TextToList */,
 				BECA25CF1948576400D3A1DE /* TextToListTests */,
 				BECA25C11948576400D3A1DE /* Products */,
@@ -174,6 +204,10 @@
 				BECA25DD194857D000D3A1DE /* PBXTargetDependency */,
 				BEA2FE341949997100C4BA3B /* PBXTargetDependency */,
 				BE7FDD10194B6B330079490E /* PBXTargetDependency */,
+				BE7FDD12194B6B330079490E /* PBXTargetDependency */,
+				BE7FDD14194B6B700079490E /* PBXTargetDependency */,
+				BE7FDD16194B6B800079490E /* PBXTargetDependency */,
+				BE7FDD18194B80EF0079490E /* PBXTargetDependency */,
 			);
 			name = TextToListTests;
 			productName = TextToListTests;
@@ -259,6 +293,26 @@
 			target = BECA25BF1948576400D3A1DE /* TextToList */;
 			targetProxy = BE7FDD0F194B6B330079490E /* PBXContainerItemProxy */;
 		};
+		BE7FDD12194B6B330079490E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BECA25BF1948576400D3A1DE /* TextToList */;
+			targetProxy = BE7FDD11194B6B330079490E /* PBXContainerItemProxy */;
+		};
+		BE7FDD14194B6B700079490E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BECA25BF1948576400D3A1DE /* TextToList */;
+			targetProxy = BE7FDD13194B6B700079490E /* PBXContainerItemProxy */;
+		};
+		BE7FDD16194B6B800079490E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BECA25BF1948576400D3A1DE /* TextToList */;
+			targetProxy = BE7FDD15194B6B800079490E /* PBXContainerItemProxy */;
+		};
+		BE7FDD18194B80EF0079490E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BECA25BF1948576400D3A1DE /* TextToList */;
+			targetProxy = BE7FDD17194B80EF0079490E /* PBXContainerItemProxy */;
+		};
 		BEA2FE341949997100C4BA3B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = BECA25BF1948576400D3A1DE /* TextToList */;
@@ -312,7 +366,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				METAL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -352,7 +406,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				METAL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
