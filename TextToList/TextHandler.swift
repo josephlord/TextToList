@@ -28,7 +28,7 @@ protocol JSONable {
     var json: String { get }
 }
 
-func array2json(arr:JSONable[])->String {
+func array2json<T:JSONable>(arr:T[])->String {
     var list_json = "["
     for jsonable in arr {
         list_json += jsonable.json + ","
@@ -43,7 +43,7 @@ protocol ListContentItem: JSONable {
     
 }
 
-struct Item : ListContentItem,JSONable {
+struct Item : ListContentItem {
     let name:String
     let notes:String = ""
     let quantity:String = ""
@@ -56,12 +56,12 @@ struct Item : ListContentItem,JSONable {
         self.notes = notes
         self.quantity = quantity
     }
-    var json:String {
+    var json:String { get {
         return "{ class\": \"Item\", \"name\": \"\(self.name)\", \"checked\": false, \"quantity\": \"\(self.quantity)\", \"notes\": \"\(self.notes)\"}"
-    }
+    }}
 }
 
-struct List : ListContentItem,JSONable {
+struct List : ListContentItem {
     let contents:ListContentItem[]
     let name:String
     let type = ContentType.list
@@ -69,12 +69,11 @@ struct List : ListContentItem,JSONable {
         self.name = name
         self.contents = contents
     }
-    var json:String {
-        var list_json = "{ \"class\": \"List\", \"name\": \"\(self.name)\", \"contents\": "
-            //array2json(self.contents)
+    var json:String { get {
+        var list_json = "{ \"class\": \"List\", \"name\": \"\(self.name)\", \"contents\": "//\(array2json(self.contents)) ]"
         
         return list_json
-    }
+    }}
 }
 
 

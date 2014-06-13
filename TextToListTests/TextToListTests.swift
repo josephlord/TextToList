@@ -109,10 +109,9 @@ class TextToListTests: XCTestCase {
         let (result, errors) = parseMultilineText(self.testString1)
         XCTAssertEqual(errors.count, 0)
         XCTAssertEqual(result[0].name,"Item1")
-        //array2json(result)
         //println(array2json(result))
     }
-    
+  
     func testPerformanceExample() {
         // This is an example of a performance test case.
         func repeatedPlus(base: String, count:Int)->String {
