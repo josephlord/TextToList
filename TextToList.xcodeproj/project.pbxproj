@@ -15,6 +15,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		BE7FDD0F194B6B330079490E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BECA25B71948576400D3A1DE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BECA25BF1948576400D3A1DE;
+			remoteInfo = TextToList;
+		};
 		BEA2FE331949997100C4BA3B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BECA25B71948576400D3A1DE /* Project object */;
@@ -166,6 +173,7 @@
 				BECA25CE1948576400D3A1DE /* PBXTargetDependency */,
 				BECA25DD194857D000D3A1DE /* PBXTargetDependency */,
 				BEA2FE341949997100C4BA3B /* PBXTargetDependency */,
+				BE7FDD10194B6B330079490E /* PBXTargetDependency */,
 			);
 			name = TextToListTests;
 			productName = TextToListTests;
@@ -246,6 +254,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		BE7FDD10194B6B330079490E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BECA25BF1948576400D3A1DE /* TextToList */;
+			targetProxy = BE7FDD0F194B6B330079490E /* PBXContainerItemProxy */;
+		};
 		BEA2FE341949997100C4BA3B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = BECA25BF1948576400D3A1DE /* TextToList */;

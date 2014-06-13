@@ -16,12 +16,24 @@ enum ContentType {
     case list, item
 }
 
-protocol ListContentItem {
-    var name:String { get }
-    var type:ContentType { get }
+protocol JSONable {
+    func json()->String
 }
 
+func array2json(arr:JSONable[])->String {
+    var list_json = "["
+    for lci in arr {
+        list_json += lci.json() + ","
+    }
+    list_json.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: ","))
+    return list_json + "]"
+}
 
+protocol ListContentItem: JSONable {
+    var name:String { get }
+    var type:ContentType { get }
+    
+}
 
 struct Item : ListContentItem {
     let name:String
@@ -36,6 +48,9 @@ struct Item : ListContentItem {
         self.notes = notes
         self.quantity = quantity
     }
+    func json()->String {
+        return "{ class\": \"Item\", \"name\": \"\(self.name)\", \"checked\": false, \"quantity\": \"\(self.quantity)\", \"notes\": \"\(self.notes)\"}"
+    }
 }
 
 struct List : ListContentItem {
@@ -46,7 +61,15 @@ struct List : ListContentItem {
         self.name = name
         self.contents = contents
     }
+    func json()->String {
+        var list_json = "{ \"class\": \"List\", \"name\": \"\(self.name)\", \"contents\": ["
+        
+        
+        return list_json
+    }
 }
+
+
 
 protocol ListItemLine {
     var indent:Int { get }

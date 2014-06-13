@@ -38,14 +38,14 @@ class TextToListTests: XCTestCase {
         let it = Item(name: itemname)
         XCTAssertEqual(it.name, itemname)
     }
-    /*
+    
     func testSplitLines() {
         let stringWith3Lines = "zero\none\ntwo"
         var stringArray: String[] = []
         stringWith3Lines.enumerateLines({(line:String, inout stop:Bool)->() in stringArray.append(line)})
         XCTAssert(stringArray.count == 3)
         XCTAssert(stringArray == ["zero", "one","two"])
-    }*/
+    }
     
     func test_procLine() {
         XCTAssert(_procLine("blah") == ("blah", 0, false))
@@ -82,12 +82,24 @@ class TextToListTests: XCTestCase {
         let (result, errors) = parseMultilineText(self.testString1)
         XCTAssertEqual(errors.count, 0)
         XCTAssertEqual(result[0].name,"Item1")
+        //array2json(result)
+        //println(array2json(result))
     }
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
+        func repeatedPlus(base: String, count:Int)->String {
+            var outstring = base
+            for i in 1..count {
+                outstring += base
+            }
+            return outstring
+        }
+        let perfteststring = repeatedPlus(self.testString1, 100)
+        var result:ListContentItem[] = []
+        var errors:ParseError[] = []
         self.measureBlock() {
-            let (result,errors) = parseMultilineText(self.testString1)
+            (result,errors) = parseMultilineText(perfteststring)
         }
     }
 }
