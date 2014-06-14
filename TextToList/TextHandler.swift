@@ -143,31 +143,23 @@ func buildTree(lineArray:Slice<ListItemLine>, indentLevel:Int)
     var in_sublist = false
     var nextIndex = 0
     for line in lineArray {
-        println("index: \(nextIndex), indentlevel: \(indentLevel), lineArray.count: \(lineArray.count)")
         ++nextIndex
-        println("trimmed:'\(line.trimmedLine)' indent: \(line.indent)' isList? \(line.list)")
         if (line.indent < indentLevel) {
-            println("Outdent - break and return")
             break
         } // Outdent compared to us. Escape and let caller deal with it
         if (in_sublist && line.indent > indentLevel + 1) {
-            println("In sublist -continue")
             continue
         }
         if (in_sublist && line.indent == indentLevel + 1) {
             parseErrors.append(ParseError(line: nil));
-            println("Indent + 1 parse error")
             continue
         }
         // At this point either we weren't in a sublist or were but are back at this level's indentation level
-        println("Calling makeNode: \(least(nextIndex, lineArray.count))..\(lineArray.count)")
         let (node,errors) = line.makeNode(lineArray[least(nextIndex, lineArray.count)..lineArray.count])
-        println("Node name; \(node.name), type: \(node.type.name())")
         in_sublist = node.type == ContentType.list
         ret_val.append(node)
         parseErrors += errors
     }
-    println("Returning from buildTree with \(ret_val.count) items")
     return (ret_val, parseErrors)
 }
 
