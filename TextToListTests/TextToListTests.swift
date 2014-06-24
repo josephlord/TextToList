@@ -128,4 +128,20 @@ class TextToListTests: XCTestCase {
             (result,errors) = parseMultilineText(perfteststring)
         }
     }
+    func bodge(b: Int[]) {
+        b[0] = 55
+        println(b)
+    }
+    
+    func testBuiltInCallModel() {
+        let a = [1,2,3,4]
+        bodge(a)
+        XCTAssert(a == [1,2,3,4])
+        a[3] = 7
+        XCTAssert(a == [1,2,3,7])
+        let b = [7,3,2,1]
+        let c = sort(b)
+        XCTAssert(c == a)
+//        XCTAssert(b == [7,3,2,1])
+    }
 }
