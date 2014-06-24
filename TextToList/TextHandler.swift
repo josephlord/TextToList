@@ -178,4 +178,19 @@ func parseMultilineText(text:String) -> (ListContentItem[],ParseError[]) {
     let lciArr = multilineToListContentItems(text)
     return buildTree(lciArr[0..lciArr.count], 0)
 }
+/* 
+@objc class ListParser :NSObject {
+    class func parskeMultlineTextInputToJSON(text:String, inout errors: NSArray)->String {
+        var parsedList:ListContentItem[], errs:ParseError[]
+        (parsedList, errs) = parseMultilineText(text)
+        return array2json(parsedList)
+    }
+}
 
+class ListOb : NSObject {
+    var name:String
+    init(listContent:List) {
+        name = listContent.name
+    }
+}
+*/

@@ -16,4 +16,5 @@ FOUNDATION_EXPORT const unsigned char TextToListVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <TextToList/PublicHeader.h>
 
+//#import <TextToList/TextHandler-Swift.h>
 
