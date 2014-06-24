@@ -82,7 +82,7 @@
 
 /* Begin PBXFileReference section */
 		BE1EEAA5194876E6002D59D3 /* TextHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextHandler.swift; sourceTree = "<group>"; };
-		BE579EF5194B9EE60031D4C0 /* Slices.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Slices.playground; sourceTree = "<group>"; };
+		BEAECCAE1958A1BC00D311D1 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		BECA25C01948576400D3A1DE /* TextToList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TextToList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BECA25C41948576400D3A1DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BECA25C51948576400D3A1DE /* TextToList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextToList.h; sourceTree = "<group>"; };
@@ -113,7 +113,7 @@
 		BECA25B61948576400D3A1DE = {
 			isa = PBXGroup;
 			children = (
-				BE579EF5194B9EE60031D4C0 /* Slices.playground */,
+				BEAECCAE1958A1BC00D311D1 /* MyPlayground.playground */,
 				BECA25C21948576400D3A1DE /* TextToList */,
 				BECA25CF1948576400D3A1DE /* TextToListTests */,
 				BECA25C11948576400D3A1DE /* Products */,
