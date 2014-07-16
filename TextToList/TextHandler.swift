@@ -178,15 +178,25 @@ func parseMultilineText(text:String) -> (ListContentItem[],ParseError[]) {
     let lciArr = multilineToListContentItems(text)
     return buildTree(lciArr[0..lciArr.count], 0)
 }
-/* 
-@objc class ListParser :NSObject {
-    class func parskeMultlineTextInputToJSON(text:String, inout errors: NSArray)->String {
-        var parsedList:ListContentItem[], errs:ParseError[]
-        (parsedList, errs) = parseMultilineText(text)
-        return array2json(parsedList)
-    }
-}
 
+class ListParser  {
+    var i = 1
+    class func parseMultlineTextInputToJSON(text:String, inout errors:NSMutableArray)->(String) {
+        let (parsedList:ListContentItem[], errs) = ([Item(name:"a"), List(name:"b", contents: [Item(name: "c")])],[ParseError(line: 1)])//parseMultilineText(text)
+        let jsonableArray:JSONable[] = parsedList.map({ (l:ListContentItem)->(JSONable) in
+            let j:JSONable = l
+                return j
+            })
+        array2json(parsedList)
+        return "str"
+    }
+    //    class func parseMultlineTextInputToJSON(text:String, inout errors: NSArray)->String {
+    //    var parsedList:ListContentItem[], errs:ParseError[]
+    //    (parsedList, errs) = parseMultilineText(text)
+    //   return array2json(parsedList)
+    //}
+}
+/*
 class ListOb : NSObject {
     var name:String
     init(listContent:List) {
