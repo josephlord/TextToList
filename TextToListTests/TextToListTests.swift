@@ -42,11 +42,11 @@ class TextToListTests: XCTestCase {
     
     func testSlices() {
         let a = [0,1,2,3,4,5,6,7,8,9]
-        let b = a[2..a.count]
+        let b = a[2..<a.count]
         XCTAssertEqual(b.count, 8)
         println(b)
         println(b.count)
-        let c = b[2..b.count]
+        let c = b[2..<b.count]
         println(c)
         XCTAssertEqual(c.count, 6)
     }
@@ -59,7 +59,7 @@ class TextToListTests: XCTestCase {
     
     func testSplitLines() {
         let stringWith3Lines = "zero\none\ntwo"
-        var stringArray: String[] = []
+        var stringArray: [String] = []
         stringWith3Lines.enumerateLines({(line:String, inout stop:Bool)->() in stringArray.append(line)})
         XCTAssert(stringArray.count == 3)
         XCTAssert(stringArray == ["zero", "one","two"])
@@ -73,16 +73,16 @@ class TextToListTests: XCTestCase {
     }
     
     func testBuildTree() {
-        var input:ListItemLine[] = []
-        var (tree:ListContentItem[], errs:ParseError[]) = buildTree(input[0..0], 0)
+        var input:[ListItemLine] = []
+        var (tree:[ListContentItem], errs:[ParseError]) = buildTree(input[0..<0], 0)
         XCTAssertEqual(tree.count, 0)
         XCTAssert(errs.count == 0)
     }
     
     func testBuildTreeNonEmpty() {
         let inputPrep = multilineToListContentItems(testString1)
-        var input:ListItemLine[] = inputPrep
-        var (tree:ListContentItem[], errs:ParseError[]) = buildTree(input[0..input.count], 0)
+        var input:[ListItemLine] = inputPrep
+        var (tree:[ListContentItem], errs:[ParseError]) = buildTree(input[0..<input.count], 0)
         XCTAssert(tree.count == 4)
         XCTAssert(errs.count == 0)
         
@@ -116,19 +116,20 @@ class TextToListTests: XCTestCase {
         // This is an example of a performance test case.
         func repeatedPlus(base: String, count:Int)->String {
             var outstring = base
-            for i in 1..count {
+            for i in 1..<count {
                 outstring += base
             }
             return outstring
         }
-        var result:ListContentItem[] = []
-        var errors:ParseError[] = []
+        var result:[ListContentItem] = []
+        var errors:[ParseError] = []
         let perfteststring = repeatedPlus(self.testString1, 100)
         self.measureBlock() {
             (result,errors) = parseMultilineText(perfteststring)
         }
     }
-    func bodge(b: Int[]) {
+    /*
+    func bodge(b: [Int]) {
         b[0] = 55
         println(b)
     }
@@ -143,5 +144,5 @@ class TextToListTests: XCTestCase {
         let c = sort(b)
         XCTAssert(c == a)
 //        XCTAssert(b == [7,3,2,1])
-    }
+    }*/
 }

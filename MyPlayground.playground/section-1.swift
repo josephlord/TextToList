@@ -4,6 +4,18 @@ import UIKit
 
 var str = "Hello, playground"
 
+    var itr = str.generate()
+
+itr.next()
+var itr2 = itr
+itr2.next()
+itr.next()
+itr.next()
+itr.next()
+itr.next()
+itr.next()
+
+
 let v = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
 v.backgroundColor = UIColor.blueColor()
 

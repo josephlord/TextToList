@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		BE1EEAA6194876E6002D59D3 /* TextHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1EEAA5194876E6002D59D3 /* TextHandler.swift */; };
 		BE1EEAA7194876E6002D59D3 /* TextHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1EEAA5194876E6002D59D3 /* TextHandler.swift */; };
+		BEB38F1619D0915900985E0E /* TextToList.h in Resources */ = {isa = PBXBuildFile; fileRef = BECA25C51948576400D3A1DE /* TextToList.h */; };
+		BEB38F1719D0918400985E0E /* TextToList.h in Resources */ = {isa = PBXBuildFile; fileRef = BECA25C51948576400D3A1DE /* TextToList.h */; };
 		BECA25C61948576400D3A1DE /* TextToList.h in Headers */ = {isa = PBXBuildFile; fileRef = BECA25C51948576400D3A1DE /* TextToList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BECA25CC1948576400D3A1DE /* TextToList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BECA25C01948576400D3A1DE /* TextToList.framework */; };
 		BECA25D31948576400D3A1DE /* TextToListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA25D21948576400D3A1DE /* TextToListTests.swift */; };
@@ -263,6 +265,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEB38F1619D0915900985E0E /* TextToList.h in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +273,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEB38F1719D0918400985E0E /* TextToList.h in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

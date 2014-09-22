@@ -28,7 +28,7 @@ protocol JSONable {
     var json: String { get }
 }
 
-func array2json<T:JSONable>(arr:T[])->String {
+func array2json<T:JSONable>(arr:[T])->String {
     var list_json = "["
     for jsonable in arr {
         list_json += jsonable.json + ","
@@ -62,10 +62,10 @@ struct Item : ListContentItem {
 }
 
 struct List : ListContentItem {
-    let contents:ListContentItem[]
+    let contents:[ListContentItem]
     let name:String
     let type = ContentType.list
-    init(name:String, contents: ListContentItem[]) {
+    init(name:String, contents: [ListContentItem]) {
         self.name = name
         self.contents = contents
     }
@@ -84,11 +84,11 @@ protocol ListItemLine {
     var trimmedLine:String { get }
     var list:Bool { get }
     var lineNo:Int? { get set }
-    func makeNode(lines: Slice<ListItemLine>) -> (ListContentItem, ParseError[])
+    func makeNode(lines: Slice<ListItemLine>) -> (ListContentItem, [ParseError])
 }
 
 // Used in ItemLine init. Returns trimmed string, indent int, islist bool as a tuple
-func _procLine(line:String)->(String,Int,Bool) {
+/*func _procLine(line:String)->(String,Int,Bool) {
     var i = 0
     for c in line {
         if (c != " ") { break }
@@ -100,8 +100,35 @@ func _procLine(line:String)->(String,Int,Bool) {
         isList = true
         i += 2
     }
-    return (line.substringFromIndex(i),i, isList)
+    return (line.substringFromIndex(i as String.Index),i, isList)
+}*/
+func _procLine(line:String)->(String, Int, Bool) {
+    var itr = line.generate()
+    var indentLevel = 0
+    var isList = false
+    for c in itr {
+        switch (c) {
+        case " ":
+            var tmp_itr = itr
+            if " " == tmp_itr.next() {
+                itr = tmp_itr
+                indentLevel += 2
+            }
+        case "-":
+            var tmp_itr = itr
+            if " " == tmp_itr.next() {
+                isList = true
+                itr = tmp_itr
+                indentLevel += 2
+                break
+            }
+        default:
+            break
+        }
+    }
+    return (line.substringFromIndex(advance(line.startIndex, indentLevel)), indentLevel, isList)
 }
+
 
 struct ItemLine : ListItemLine {
     let rawLine:String
@@ -113,7 +140,7 @@ struct ItemLine : ListItemLine {
         rawLine = text
         (trimmedLine, indent, list) = _procLine(text)
     }
-    func makeNode(lines: Slice<ListItemLine>)->(ListContentItem, ParseError[])  {
+    func makeNode(lines: Slice<ListItemLine>)->(ListContentItem, [ParseError])  {
         if list {
             let (contents, errors) = buildTree(lines, indent)//[least(1,lines.count)..lines.count]
             return (List(name: trimmedLine, contents: contents), errors)
@@ -137,9 +164,9 @@ struct ParseError {
 }
 
 func buildTree(lineArray:Slice<ListItemLine>, indentLevel:Int)
-        -> (ListContentItem[],ParseError[]) {
-    var ret_val:ListContentItem[] = []
-    var parseErrors:ParseError[] = []
+        -> ([ListContentItem],[ParseError]) {
+    var ret_val:[ListContentItem] = []
+    var parseErrors:[ParseError] = []
     var in_sublist = false
     var nextIndex = 0
     for line in lineArray {
@@ -155,7 +182,7 @@ func buildTree(lineArray:Slice<ListItemLine>, indentLevel:Int)
             continue
         }
         // At this point either we weren't in a sublist or were but are back at this level's indentation level
-        let (node,errors) = line.makeNode(lineArray[least(nextIndex, lineArray.count)..lineArray.count])
+        let (node,errors) = line.makeNode(lineArray[least(nextIndex, lineArray.count)..<lineArray.count])
         in_sublist = node.type == ContentType.list
         ret_val.append(node)
         parseErrors += errors
@@ -163,9 +190,9 @@ func buildTree(lineArray:Slice<ListItemLine>, indentLevel:Int)
     return (ret_val, parseErrors)
 }
 
-func multilineToListContentItems(text:String)->ListItemLine[]
+func multilineToListContentItems(text:String)->[ListItemLine]
 {
-    var lciArr:ListItemLine[] = []
+    var lciArr:[ListItemLine] = []
     text.enumerateLines(){(line: String, inout stop: Bool)->() in lciArr.append(ItemLine(text: line))}
     var i = 1
     for (var line) in lciArr {
@@ -174,9 +201,9 @@ func multilineToListContentItems(text:String)->ListItemLine[]
     return lciArr
 }
 
-func parseMultilineText(text:String) -> (ListContentItem[],ParseError[]) {
+func parseMultilineText(text:String) -> ([ListContentItem],[ParseError]) {
     let lciArr = multilineToListContentItems(text)
-    return buildTree(lciArr[0..lciArr.count], 0)
+    return buildTree(lciArr[0..<lciArr.count], 0)
 }
 /* 
 @objc class ListParser :NSObject {
